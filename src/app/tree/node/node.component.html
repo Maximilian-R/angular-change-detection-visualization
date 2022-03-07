@@ -1,0 +1,30 @@
+<div class="node">
+  <div class="content">
+    {{ cdCheck() }}
+    <p>{{ node?.type === strategy.Default ? "Default" : "OnPush" }}</p>
+    <p>{{ input }}</p>
+    <div class="actions">
+      <button (click)="(true)">Event</button>
+      <button (click)="setInput()">Input</button>
+      <button #markButton [disabled]="node?.type === strategy.Default">
+        Mark
+      </button>
+      <button #detectButton>Detect</button>
+    </div>
+  </div>
+
+  <div class="children" *ngIf="node?.children?.length || 0 > 0">
+    <ng-container *ngFor="let node of node?.children">
+      <cdv-default
+        *ngIf="node.type === strategy.Default"
+        [node]="node"
+        [input]="input"
+      ></cdv-default>
+      <cdv-onpush
+        *ngIf="node.type === strategy.OnPush"
+        [node]="node"
+        [input]="input"
+      ></cdv-onpush>
+    </ng-container>
+  </div>
+</div>

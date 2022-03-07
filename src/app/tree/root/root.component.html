@@ -1,0 +1,19 @@
+<div class="node">
+  <div class="content">
+    {{ cdCheck() }}
+    <p>App</p>
+  </div>
+
+  <div class="children">
+    <cdv-default
+      #nodeRef
+      *ngIf="node?.type === strategy.Default"
+      [node]="node"
+    ></cdv-default>
+    <cdv-onpush
+      #nodeRef
+      *ngIf="node?.type === strategy.OnPush"
+      [node]="node"
+    ></cdv-onpush>
+  </div>
+</div>

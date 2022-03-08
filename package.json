@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "deploy": "ng deploy --base-href=/angular-change-detection-visualization/"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@angular/cli": "~13.2.5",
     "@angular/compiler-cli": "~13.2.0",
     "@types/node": "^12.11.1",
+    "angular-cli-ghpages": "^1.0.0",
     "typescript": "~4.5.2"
   }
 }

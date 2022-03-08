@@ -80,6 +80,9 @@
           "options": {
             "browserTarget": "angular-change-detection-visualization:build"
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

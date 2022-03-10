@@ -8,6 +8,7 @@ import { NodeComponent } from './tree/node/node.component';
 import { RootComponent } from './tree/root/root.component';
 import { OnpushComponent } from './strategy-component/onpush/onpush.component';
 import { DefaultComponent } from './strategy-component/default/default.component';
+import { ContextMenuComponent } from './context-menu/context-menu.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule],
@@ -17,6 +18,7 @@ import { DefaultComponent } from './strategy-component/default/default.component
     NodeComponent,
     OnpushComponent,
     DefaultComponent,
+    ContextMenuComponent,
   ],
   bootstrap: [AppComponent],
 })

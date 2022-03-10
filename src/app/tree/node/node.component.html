@@ -1,16 +1,14 @@
 <div class="node">
-  <div class="content">
+  <div class="content" #nodeRef>
     {{ cdCheck() }}
     <p>{{ node?.type === strategy.Default ? "Default" : "OnPush" }}</p>
     <p>{{ input }}</p>
-    <div class="actions">
+    <app-context-menu [target]="nodeRef">
       <button (click)="(true)">Event</button>
       <button (click)="setInput()">Input</button>
-      <button #markButton [disabled]="node?.type === strategy.Default">
-        Mark
-      </button>
+      <button #markButton>Mark</button>
       <button #detectButton>Detect</button>
-    </div>
+    </app-context-menu>
   </div>
 
   <div class="children" *ngIf="node?.children?.length || 0 > 0">

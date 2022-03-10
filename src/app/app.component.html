@@ -1,9 +1,11 @@
 <header>
   <h1>Angular Change Detection</h1>
 
-  <button #tickButton>Trigger Change Detection</button>
-  <button #timeButton>setTimeout 1000ms</button>
-  <button #requestButton>Ajax Http Request</button>
+  <div class="actions">
+    <button #tickButton>App tick</button>
+    <button #timeButton>setTimeout 1000ms</button>
+    <button #requestButton>Ajax Http Request</button>
+  </div>
 </header>
 
 <main>
@@ -14,11 +16,11 @@
   </select>
 
   <div class="tree-container">
-    <div>
+    <div class="tree">
       <h2>NgZone: Active</h2>
       <cdv-root [node]="selectedTree"></cdv-root>
     </div>
-    <div>
+    <div class="tree">
       <h2>NgZone: Inactive</h2>
       <cdv-root #rootZoneLess [node]="selectedTree" [detach]="true"></cdv-root>
     </div>

@@ -10,8 +10,12 @@
   --background-color: #eeeeee;
 
   --tree-line-color: #303030;
-  --tree-line-width: 2px;
-  --tree-node-margin: 2rem;
+  --tree-line-width: 0.125em;
+  --tree-node-margin: 2em;
+}
+
+html {
+  max-width: 100vw;
 }
 
 * {
@@ -26,12 +30,14 @@ body {
 }
 
 button {
+  font-weight: 400;
   font-family: inherit;
   border: none;
   cursor: pointer;
 }
 
 header {
+  padding: 0 1rem;
   margin-bottom: 2rem;
   text-align: center;
 
@@ -40,24 +46,21 @@ header {
     margin-top: 1rem;
   }
 
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   button {
+    white-space: nowrap;
     background-color: var(--view-color-2);
     color: var(--view-color-text);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     font-size: 1rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin: 0.5rem;
   }
-}
-
-button {
-  font-weight: 400;
-}
-
-.root {
-  display: flex;
-  justify-content: center;
 }
 
 main {
@@ -76,6 +79,12 @@ main {
   h2 {
     margin-bottom: 1rem;
   }
+
+  //font-size: clamp(1rem, 5vw, 1.5rem);
+}
+
+.tree {
+  font-size: 1rem;
 }
 
 .node {
@@ -88,20 +97,30 @@ main {
     }
   }
 
+  &.root > .content {
+    cursor: default;
+  }
+
   .content {
+    cursor: pointer;
+    position: relative;
     align-self: center;
     display: grid;
-    row-gap: 0.5rem;
-    font-size: 1rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
+    row-gap: 0.5em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
+    border-radius: 0.25em;
     text-align: center;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.15);
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.15);
     background-color: var(--view-color-background);
     color: var(--view-color-text);
     transition: background-color 200ms ease-in-out;
+
+    > p {
+      pointer-events: none;
+    }
   }
 
   > .children {
@@ -174,33 +193,48 @@ main {
       }
     }
   }
+}
 
-  .actions {
-    display: grid;
-    flex-direction: column;
-    border-radius: 0.25rem;
-    overflow: hidden;
+app-context-menu {
+  position: absolute;
+}
+.context-menu {
+  display: grid;
+  visibility: hidden;
+  opacity: 0;
+  flex-direction: column;
+  border-radius: 0.25em;
+  overflow: hidden;
+  box-shadow: 0 0 0.5em 0 rgba(0, 0, 0, 0.15);
+  position: absolute;
+  z-index: 1;
+  transition: opacity 150ms ease-in-out, visibility 150ms;
 
-    button {
-      font-size: 0.8rem;
-      background: var(--view-color-text);
-      color: var(--view-color-text-inverted);
-      padding: 0.25rem 0.5rem;
-      transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+  &.display {
+    visibility: visible;
+    opacity: 1;
+  }
 
-      &:hover {
-        background: var(--view-color-3);
-      }
+  button {
+    font-size: 0.8em;
+    background: var(--view-color-text);
+    color: var(--view-color-text-inverted);
+    padding: 0.25em 0.5em;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+
+    &:hover {
+      background: var(--view-color-3);
     }
   }
 }
 
 .cards {
-  margin: 2rem;
-  margin-top: 6rem;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6rem 0.5rem 2rem;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 
   .card {
     padding: 1rem;

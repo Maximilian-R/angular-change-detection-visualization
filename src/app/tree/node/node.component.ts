@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -23,6 +22,7 @@ export class NodeComponent
 {
   @Input() public input: number = 0;
 
+  @ViewChild("nodeRef") nodeRef?: ElementRef;
   @ViewChild("markButton") markButton?: ElementRef;
   @ViewChild("detectButton") detectButton?: ElementRef;
 

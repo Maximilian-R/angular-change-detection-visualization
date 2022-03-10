@@ -14,12 +14,12 @@
   --tree-node-margin: 2em;
 }
 
-html {
-  max-width: 100vw;
-}
-
 * {
   margin: 0;
+}
+
+html {
+  max-width: 100vw;
 }
 
 body {
@@ -27,6 +27,12 @@ body {
   color: var(--view-color-text);
   font-weight: 400;
   background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+
+  > cdv-app {
+    max-width: 1200px;
+  }
 }
 
 button {
@@ -79,8 +85,6 @@ main {
   h2 {
     margin-bottom: 1rem;
   }
-
-  //font-size: clamp(1rem, 5vw, 1.5rem);
 }
 
 .tree {
@@ -234,7 +238,11 @@ app-context-menu {
   padding: 6rem 0.5rem 2rem;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
 
   .card {
     padding: 1rem;
@@ -252,7 +260,7 @@ app-context-menu {
     }
 
     p {
-      font-size: 1rem;
+      font-size: 0.8em;
       font-family: monospace;
     }
 

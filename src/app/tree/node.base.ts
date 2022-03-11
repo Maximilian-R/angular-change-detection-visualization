@@ -27,6 +27,8 @@ export class BaseNodeComponent implements DoCheck {
         nodeElement.classList.remove("checked");
         this.timeout = undefined;
       }, 500);
+
+      this.el?.nativeElement.querySelector(".value")?.classList.remove("dirty");
     });
   }
 
@@ -36,8 +38,6 @@ export class BaseNodeComponent implements DoCheck {
       .querySelector(".content")
       .querySelector(".check-status")
       ?.classList.remove("enabled");
-
-    this.el?.nativeElement.querySelector(".value")?.classList.remove("dirty");
   }
 
   /* 

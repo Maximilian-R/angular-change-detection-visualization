@@ -36,7 +36,7 @@ export class ContextMenuComponent implements AfterViewInit, OnDestroy {
     const menuElement = this.menu?.nativeElement;
 
     this.zone.runOutsideAngular(() => {
-      fromEvent<PointerEvent>(targetElement, "click", { capture: true })
+      fromEvent<PointerEvent>(targetElement, "click")
         .pipe(
           takeUntil(this.onDestroy$),
           filter((event) => event.target === targetElement),
@@ -45,8 +45,9 @@ export class ContextMenuComponent implements AfterViewInit, OnDestroy {
             menuElement.style.transform = `translate(${event.offsetX}px,${event.offsetY}px)`;
           }),
           switchMap(() => {
-            return fromEvent<PointerEvent>(document, "click").pipe(
-              skip(1),
+            return fromEvent<PointerEvent>(document, "click", {
+              capture: true, // ignore the opening click
+            }).pipe(
               take(1),
               tap(() => {
                 menuElement.classList.remove("display");

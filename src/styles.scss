@@ -31,7 +31,7 @@ body {
   justify-content: center;
 
   > cdv-app {
-    max-width: 1200px;
+    max-width: min(1200px, 100%);
   }
 }
 
@@ -125,6 +125,21 @@ main {
     > p {
       pointer-events: none;
     }
+
+    .check-status {
+      position: absolute;
+      top: 0.25em;
+      right: 0.25em;
+      height: 0.5em;
+      width: 0.5em;
+      background-color: var(--view-color-3);
+      border-radius: 50%;
+      display: none;
+
+      &.enabled {
+        display: block;
+      }
+    }
   }
 
   > .children {
@@ -199,6 +214,12 @@ main {
   }
 }
 
+// Always display check status for default strategy?
+// Highlight the lines instead??
+cdv-default > cdv-node > .node > .content > .check-status {
+  //display: block !important;
+}
+
 app-context-menu {
   position: absolute;
 }
@@ -232,10 +253,21 @@ app-context-menu {
   }
 }
 
-.cards {
-  box-sizing: border-box;
+main + section {
+  padding-top: 6rem;
+}
+
+section {
+  padding: 1rem 0.5rem;
   width: 100%;
-  padding: 6rem 0.5rem 2rem;
+  box-sizing: border-box;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+.cards {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr;

@@ -1,11 +1,12 @@
 <div class="node">
   <div class="content" #nodeRef>
+    <div class="check-status"></div>
     {{ cdCheck() }}
     <p>{{ node?.type === strategy.Default ? "Default" : "OnPush" }}</p>
-    <p>{{ input }}</p>
+    <p>{{ value }}</p>
     <app-context-menu [target]="nodeRef">
-      <button (click)="(true)">Event</button>
-      <button (click)="setInput()">Input</button>
+      <button (click)="clicked()">Event</button>
+      <button (click)="incrementValue()">Value</button>
       <button #markButton>Mark</button>
       <button #detectButton>Detect</button>
     </app-context-menu>
@@ -16,12 +17,12 @@
       <cdv-default
         *ngIf="node.type === strategy.Default"
         [node]="node"
-        [input]="input"
+        [value]="value"
       ></cdv-default>
       <cdv-onpush
         *ngIf="node.type === strategy.OnPush"
         [node]="node"
-        [input]="input"
+        [value]="value"
       ></cdv-onpush>
     </ng-container>
   </div>

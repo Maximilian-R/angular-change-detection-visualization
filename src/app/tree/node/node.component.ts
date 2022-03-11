@@ -20,9 +20,8 @@ export class NodeComponent
   extends BaseNodeComponent
   implements OnDestroy, AfterViewInit
 {
-  @Input() public input: number = 0;
+  @Input() public value: number = 0;
 
-  @ViewChild("nodeRef") nodeRef?: ElementRef;
   @ViewChild("markButton") markButton?: ElementRef;
   @ViewChild("detectButton") detectButton?: ElementRef;
 
@@ -36,8 +35,14 @@ export class NodeComponent
     super(el, zone);
   }
 
-  public setInput() {
-    this.input++;
+  public incrementValue() {
+    this.value++;
+    //TODO: Only if event listener is in template
+    this.markAsCheckEnabled(this.el?.nativeElement);
+  }
+
+  public clicked() {
+    this.markAsCheckEnabled(this.el?.nativeElement);
   }
 
   ngAfterViewInit() {
@@ -47,6 +52,7 @@ export class NodeComponent
         .pipe(takeUntil(this.onDestroy$))
         .subscribe(() => {
           this.cd.markForCheck();
+          this.markAsCheckEnabled(this.el?.nativeElement);
         });
       fromEvent(this.detectButton?.nativeElement, "click")
         .pipe(takeUntil(this.onDestroy$))

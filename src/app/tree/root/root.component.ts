@@ -1,13 +1,10 @@
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
   NgZone,
-  OnDestroy,
   OnInit,
-  ViewChild,
 } from "@angular/core";
 import { BaseNodeComponent } from "../node.base";
 

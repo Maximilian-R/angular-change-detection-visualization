@@ -27,101 +27,108 @@
   </div>
 </main>
 
-<div class="cards">
-  <div class="card">
-    <h3>Event</h3>
-    <p>Emit an event from the view.</p>
+<section>
+  <h2>Actions</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Event</h3>
+      <p>Emit an event from the view.</p>
+    </div>
+    <div class="card">
+      <h3>Value</h3>
+      <p>
+        Emit an event and increment the component's value:number with 1. This is
+        passed as an input to child components.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Mark</h3>
+      <p>Calls <code>ChangeDetectionRef.markForCheck()</code> on the view.</p>
+    </div>
+    <div class="card">
+      <h3>Detect</h3>
+      <p>Calls <code>ChangeDetectionRef.detectChanges()</code> on the view.</p>
+    </div>
   </div>
+</section>
 
-  <div class="card">
-    <h3>Input</h3>
-    <p>
-      Emit an event and increment the component's inputnumber with 1. This is
-      also passed to child components.
-    </p>
-  </div>
+<section>
+  <h2>Change Detection</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Change Detection Strategy</h3>
+      <p>Default vs OnPush</p>
+      <br />
+      <p>
+        By default angular always run change detection from the root component.
+        It compares (dirty checking) properties used in the template (with
+        shallow comparison) and continues to traverse the whole tree even if it
+        doesn'nt detect any changes.
+      </p>
+      <br />
+      <p>
+        OnPush strategy changes this behavior to only check a view if an input
+        has changed (compared by reference), an event has been emitted from
+        itself or a child or an Observable subscribed with | async receives a
+        new value.
+      </p>
+    </div>
 
-  <div class="card">
-    <h3>Mark</h3>
-    <p>Calls <code>ChangeDetectionRef.markForCheck()</code> on the view.</p>
-  </div>
+    <div class="card">
+      <h3>Change Detection Ref</h3>
+      <p>MarkForCheck vs DetectChanges</p>
+      <br />
+      <p>
+        MarkForCheck explicitly marks the view as changed (full path from root)
+        so that it can be checked again. Does not trigger the actual change
+        detection. This is only neccesary for OnPush components.
+      </p>
+      <br />
+      <p>
+        DetectChanges triggers a local render (from the view that called it) and
+        its children.
+      </p>
+    </div>
 
-  <div class="card">
-    <h3>Detect</h3>
-    <p>Calls <code>ChangeDetectionRef.detectChanges()</code> on the view.</p>
-  </div>
+    <div class="card">
+      <h3>Zone</h3>
+      <p>
+        The following frequently used browser mechanisms are patched to support
+        and automatically trigger change detection
+      </p>
+      <br />
+      <ul>
+        <li>all browser events (click, mouseover, keyup, etc.)</li>
+        <li><code>setTimeout()</code> and <code>setInterval()</code></li>
+        <li>Ajax HTTP requests</li>
+      </ul>
+      <br />
+      <p>
+        Zone.js is enabled in this demonstration to be able to display both
+        examples simultaneously, though the second tree is detached from the
+        root component to simulate the expected behavior. If in doubts,
+        enable/disable ngZone in main.ts.
+      </p>
+    </div>
 
-  <div class="card">
-    <h3>Change Detection Strategy</h3>
-    <p>Default vs OnPush</p>
-    <br />
-    <p>
-      By default angular always run change detection from the root component. It
-      compares (dirty checking) properties used in the template (with shallow
-      comparison) and continues to traverse the whole tree even if it doesn'nt
-      detect any changes.
-    </p>
-    <br />
-    <p>
-      OnPush strategy changes this behavior to only check a view if an input has
-      changed (compared by reference), an event has been emitted from itself or
-      a child or an Observable subscribed with | async receives a new value.
-    </p>
+    <div class="card">
+      <h3>Push pipe</h3>
+      <p>
+        The standard async pipe calls
+        <code>ChangeDetectionRef.markForCheck()</code> when a new distinct value
+        is emitted from the observable. This does not trigger the actual change
+        detection to run. But the value was most likely emitted by an
+        asyncrounos mechanism patched by zone.js and therefor change detection
+        ran.
+      </p>
+      <br />
+      <p>
+        This makes async pipes less useful in zone-less environments. Lets
+        introduce the solution: push pipe. It replaces markForCheck with
+        <code>ChangeDetectionRef.detectChanges()</code> (among other changes)
+        and improves performance by only running local change detection from the
+        specific view.
+      </p>
+    </div>
   </div>
-
-  <div class="card">
-    <h3>Change Detection Ref</h3>
-    <p>MarkForCheck vs DetectChanges</p>
-    <br />
-    <p>
-      MarkForCheck explicitly marks the view as changed (full path from root) so
-      that it can be checked again. Does not trigger the actual change
-      detection.
-    </p>
-    <br />
-    <p>
-      DetectChanges triggers a local render (from the view that called it) and
-      its children.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Zone</h3>
-    <p>
-      The following frequently used browser mechanisms are patched to support
-      change detection
-    </p>
-    <br />
-    <ul>
-      <li>all browser events (click, mouseover, keyup, etc.)</li>
-      <li><code>setTimeout()</code> and <code>setInterval()</code></li>
-      <li>Ajax HTTP requests</li>
-    </ul>
-    <br />
-    <p>
-      Zone.js is enabled in this demonstration to be able to display both
-      examples simultaneously, though the second tree is detached from the root
-      component to simulate the expected behavior. If in doubts, enable/disable
-      ngZone in main.ts.
-    </p>
-  </div>
-
-  <div class="card">
-    <h3>Push pipe</h3>
-    <p>
-      The standard async pipe calls
-      <code>ChangeDetectionRef.markForCheck()</code> when a new distinct value
-      is emitted from the observable. This does not trigger the actual change
-      detection to run. But the value was most likely emitted by an asyncrounos
-      mechanism patched by zone.js and therefor change detection ran.
-    </p>
-    <br />
-    <p>
-      This makes async pipes less useful in zone-less environments. Lets
-      introduce the solution: push pipe. It replaces markForCheck with
-      <code>ChangeDetectionRef.detectChanges()</code> (among other changes) and
-      improves performance by only running local change detection from the
-      specific view.
-    </p>
-  </div>
-</div>
+</section>

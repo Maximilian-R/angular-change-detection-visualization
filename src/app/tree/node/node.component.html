@@ -3,13 +3,13 @@
     <div class="check-status"></div>
     {{ cdCheck() }}
     <p>{{ node?.type === strategy.Default ? "Default" : "OnPush" }}</p>
-    <p>{{ value }}</p>
-    <app-context-menu [target]="nodeRef">
+    <p class="value">{{ value }}</p>
+    <cdv-context-menu [target]="nodeRef">
       <button (click)="clicked()">Event</button>
       <button #valueButton>Value</button>
       <button #markButton>Mark</button>
       <button #detectButton>Detect</button>
-    </app-context-menu>
+    </cdv-context-menu>
   </div>
 
   <div class="children" *ngIf="node?.children?.length || 0 > 0">

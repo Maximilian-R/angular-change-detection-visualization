@@ -57,6 +57,7 @@ export class NodeComponent
         .pipe(takeUntil(this.onDestroy$))
         .subscribe(() => {
           this.value++;
+          this.markAsDirty();
         });
     });
   }

@@ -36,6 +36,8 @@ export class BaseNodeComponent implements DoCheck {
       .querySelector(".content")
       .querySelector(".check-status")
       ?.classList.remove("enabled");
+
+    this.el?.nativeElement.querySelector(".value")?.classList.remove("dirty");
   }
 
   /* 
@@ -51,15 +53,12 @@ export class BaseNodeComponent implements DoCheck {
     }
   }
 
-  /*
-  TODO: 
-    Simply changing the input will not trigger a check next cd.
-    However an event listener in the template will set the component as markforcheck. (All the way up to the root)
-    Should the value button really trigger an event? gives a false impression that changing the value
-    automatically causes a check of the component because the value changed.
-
-    Template value can change without the cd knowing anything (onpush). Visualize when the model data is out of sync with the view?    
-   */
+  /* 
+    Indicate that a component model is our of sync with it's view
+  */
+  public markAsDirty() {
+    this.el?.nativeElement.querySelector(".value")?.classList.add("dirty");
+  }
 
   /* 
       Show toast when clicking mark in a default component: "Mark for check does not affect default strategy components"

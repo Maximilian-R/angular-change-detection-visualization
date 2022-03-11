@@ -9,12 +9,6 @@
 </header>
 
 <main>
-  <select id="tree-select" (change)="select($event)">
-    <option value="0">Mix</option>
-    <option value="1">Only Default</option>
-    <option value="2">Only OnPush</option>
-  </select>
-
   <div class="tree-container">
     <div class="tree">
       <h2>NgZone: Active</h2>
@@ -26,13 +20,27 @@
     </div>
   </div>
 
-  <div class="display-setting">
-    <input type="checkbox" id="check-status" #checkboxCheckStatus />
-    <label for="check-status">Display check-status</label>
-  </div>
+  <section class="settings">
+    <div class="setting">
+      <label for="tree-select">Tree structure</label>
+      <select id="tree-select" (change)="select($event)">
+        <option value="0">Mix</option>
+        <option value="1">Only Default</option>
+        <option value="2">Only OnPush</option>
+      </select>
+    </div>
+    <div class="setting">
+      <label for="check-status">Display ChecksEnabled</label>
+      <input type="checkbox" id="check-status" #checkboxCheckStatus />
+    </div>
+    <div class="setting">
+      <label for="dirty-status">Display Dirty Status</label>
+      <input type="checkbox" id="dirty-status" #checkboxDirtyStatus />
+    </div>
+  </section>
 </main>
 
-<section>
+<section class="cards-section">
   <h2>Actions</h2>
   <div class="cards">
     <div class="card">
@@ -57,7 +65,30 @@
   </div>
 </section>
 
-<section>
+<section class="cards-section">
+  <h2>Settings</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Display ChecksEnabled</h3>
+      <p>
+        Each view has a state that decides if Angular will run change detection.
+        By default this is set to true, unless
+        <code>ChangeDetectionStrategy.OnPush</code> is used. Things like
+        <code>ChangeDetectionRef.markForCheck()</code> can enable it for the
+        next change detection cycle.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Display Dirty Status</h3>
+      <p>
+        Simply changing a value in a component will not trigger change detection
+        by itself and can cause the model and view to be out of sync.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="cards-section">
   <h2>Change Detection</h2>
   <div class="cards">
     <div class="card">
@@ -65,17 +96,17 @@
       <p>Default vs OnPush</p>
       <br />
       <p>
-        By default angular always run change detection from the root component.
-        It compares (dirty checking) properties used in the template (with
-        shallow comparison) and continues to traverse the whole tree even if it
-        doesn'nt detect any changes.
+        By the default angular always run change detection from the root
+        component. It compares (dirty checking) properties used in the template
+        (with shallow comparison) and continues to traverse the whole tree even
+        if it doesn'nt detect any changes.
       </p>
       <br />
       <p>
-        OnPush strategy changes this behavior to only check a view if an input
-        has changed (compared by reference), an event has been emitted from
-        itself or a child or an Observable subscribed with | async receives a
-        new value.
+        <code>ChangeDetectionStrategy.OnPush</code> changes this behavior to
+        only check a view if an input has changed (compared by reference), an
+        event has been emitted from itself or a child or an Observable
+        subscribed with | async receives a new value.
       </p>
     </div>
 

@@ -113,6 +113,7 @@ main {
     position: relative;
     align-self: center;
     display: grid;
+    justify-items: center;
     row-gap: 0.5em;
     font-size: 1em;
     padding: 0.5em 0.75em;
@@ -202,43 +203,63 @@ main {
   }
 }
 
-.display-setting {
-  margin: 1rem 0;
+.settings {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 
-  label {
-    margin-left: 0.5rem;
+  align-items: center;
+  margin-top: 2rem;
+
+  .setting {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+
+    label {
+      margin-right: 0.5rem;
+    }
   }
 }
 
 .check-status {
   display: none;
 }
-.display-check-status {
-  .check-status {
-    position: absolute;
-    bottom: 0.25em;
-    right: 0.25em;
-    height: 0.5em;
-    width: 0.5em;
-    background-color: var(--view-color-check-disabled);
-    border-radius: 50%;
-    display: block;
 
-    &.enabled {
-      background-color: var(--view-color-check-enabled);
+.display {
+  &-check-status {
+    .check-status {
+      position: absolute;
+      bottom: 0.25em;
+      right: 0.25em;
+      height: 0.5em;
+      width: 0.5em;
+      background-color: var(--view-color-check-disabled);
+      border-radius: 50%;
+      display: block;
+
+      &.enabled {
+        background-color: var(--view-color-check-enabled);
+      }
+    }
+  }
+
+  &-dirty-status {
+    .value.dirty {
+      background: var(--view-color-3);
+      border-radius: 0.25em;
+      padding: 0 0.25em;
     }
   }
 }
 
-// Highlight the lines instead??
 cdv-default > cdv-node > .node > .content > .check-status {
   background-color: var(--view-color-check-enabled);
 }
 
-app-context-menu {
+cdv-context-menu {
   position: absolute;
+  left: 0;
+  top: 0;
 }
 .context-menu {
   display: grid;
@@ -274,7 +295,7 @@ main + section {
   padding-top: 6rem;
 }
 
-section {
+.cards-section {
   padding: 1rem 0.5rem;
   width: 100%;
   box-sizing: border-box;
@@ -310,7 +331,14 @@ section {
 
     p {
       font-size: 0.8em;
-      font-family: monospace;
+    }
+
+    ul {
+      padding-left: 0.5em;
+
+      li {
+        font-size: 0.8em;
+      }
     }
 
     code {

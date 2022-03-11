@@ -25,6 +25,11 @@
       <cdv-root #rootZoneLess [node]="selectedTree" [detach]="true"></cdv-root>
     </div>
   </div>
+
+  <div class="display-setting">
+    <input type="checkbox" id="check-status" #checkboxCheckStatus />
+    <label for="check-status">Display check-status</label>
+  </div>
 </main>
 
 <section>
@@ -32,13 +37,13 @@
   <div class="cards">
     <div class="card">
       <h3>Event</h3>
-      <p>Emit an event from the view.</p>
+      <p>Emit an event from the template</p>
     </div>
     <div class="card">
       <h3>Value</h3>
       <p>
-        Emit an event and increment the component's value:number with 1. This is
-        passed as an input to child components.
+        Increment the component's model value:number with 1. This is passed as
+        an input to child components.
       </p>
     </div>
     <div class="card">

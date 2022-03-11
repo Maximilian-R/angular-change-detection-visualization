@@ -6,7 +6,7 @@
     <p>{{ value }}</p>
     <app-context-menu [target]="nodeRef">
       <button (click)="clicked()">Event</button>
-      <button (click)="incrementValue()">Value</button>
+      <button #valueButton>Value</button>
       <button #markButton>Mark</button>
       <button #detectButton>Detect</button>
     </app-context-menu>

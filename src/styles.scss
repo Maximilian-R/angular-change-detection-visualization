@@ -9,6 +9,9 @@
   --view-color-text-inverted: white;
   --background-color: #eeeeee;
 
+  --view-color-check-enabled: #f0a2b9;
+  --view-color-check-disabled: #30303018;
+
   --tree-line-color: #303030;
   --tree-line-width: 0.125em;
   --tree-node-margin: 2em;
@@ -125,21 +128,6 @@ main {
     > p {
       pointer-events: none;
     }
-
-    .check-status {
-      position: absolute;
-      top: 0.25em;
-      right: 0.25em;
-      height: 0.5em;
-      width: 0.5em;
-      background-color: var(--view-color-3);
-      border-radius: 50%;
-      display: none;
-
-      &.enabled {
-        display: block;
-      }
-    }
   }
 
   > .children {
@@ -214,10 +202,39 @@ main {
   }
 }
 
-// Always display check status for default strategy?
+.display-setting {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+
+  label {
+    margin-left: 0.5rem;
+  }
+}
+
+.check-status {
+  display: none;
+}
+.display-check-status {
+  .check-status {
+    position: absolute;
+    bottom: 0.25em;
+    right: 0.25em;
+    height: 0.5em;
+    width: 0.5em;
+    background-color: var(--view-color-check-disabled);
+    border-radius: 50%;
+    display: block;
+
+    &.enabled {
+      background-color: var(--view-color-check-enabled);
+    }
+  }
+}
+
 // Highlight the lines instead??
 cdv-default > cdv-node > .node > .content > .check-status {
-  //display: block !important;
+  background-color: var(--view-color-check-enabled);
 }
 
 app-context-menu {

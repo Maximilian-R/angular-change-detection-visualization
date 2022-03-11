@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import {
   AfterViewInit,
   ApplicationRef,
@@ -25,6 +25,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild("tickButton") tickButton?: ElementRef;
   @ViewChild("timeButton") timeButton?: ElementRef;
   @ViewChild("requestButton") requestButton?: ElementRef;
+  @ViewChild("checkboxCheckStatus") checkboxCheckStatus?: ElementRef;
 
   public selectedTree: INode = this.treeSelection[0];
 
@@ -80,6 +81,14 @@ export class AppComponent implements AfterViewInit, OnDestroy {
           this.zone.run(() => {
             this.ajaxRequest();
           });
+        });
+
+      fromEvent(this.checkboxCheckStatus?.nativeElement, "change")
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(() => {
+          document
+            .querySelector(".tree-container")
+            ?.classList.toggle("display-check-status");
         });
     });
   }

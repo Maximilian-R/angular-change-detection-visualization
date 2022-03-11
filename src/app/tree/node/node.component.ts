@@ -24,6 +24,7 @@ export class NodeComponent
 
   @ViewChild("markButton") markButton?: ElementRef;
   @ViewChild("detectButton") detectButton?: ElementRef;
+  @ViewChild("valueButton") valueButton?: ElementRef;
 
   private onDestroy$ = new Subject<void>();
 
@@ -35,18 +36,11 @@ export class NodeComponent
     super(el, zone);
   }
 
-  public incrementValue() {
-    this.value++;
-    //TODO: Only if event listener is in template
-    this.markAsCheckEnabled(this.el?.nativeElement);
-  }
-
   public clicked() {
     this.markAsCheckEnabled(this.el?.nativeElement);
   }
 
   ngAfterViewInit() {
-    // Click buttons without triggering change detection
     this.zone.runOutsideAngular(() => {
       fromEvent(this.markButton?.nativeElement, "click")
         .pipe(takeUntil(this.onDestroy$))
@@ -58,6 +52,11 @@ export class NodeComponent
         .pipe(takeUntil(this.onDestroy$))
         .subscribe(() => {
           this.cd.detectChanges();
+        });
+      fromEvent(this.valueButton?.nativeElement, "click")
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(() => {
+          this.value++;
         });
     });
   }

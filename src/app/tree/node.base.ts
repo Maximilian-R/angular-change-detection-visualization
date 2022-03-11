@@ -60,4 +60,8 @@ export class BaseNodeComponent implements DoCheck {
 
     Template value can change without the cd knowing anything (onpush). Visualize when the model data is out of sync with the view?    
    */
+
+  /* 
+      Show toast when clicking mark in a default component: "Mark for check does not affect default strategy components"
+    */
 }

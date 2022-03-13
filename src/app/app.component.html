@@ -45,7 +45,7 @@
   <div class="cards">
     <div class="card">
       <h3>Event</h3>
-      <p>Emit an event from the template</p>
+      <p>Fire an event on the target view.</p>
     </div>
     <div class="card">
       <h3>Value</h3>
@@ -71,11 +71,11 @@
     <div class="card">
       <h3>Display ChecksEnabled</h3>
       <p>
-        Each view has a state that decides if Angular will run change detection.
-        By default this is set to true, unless
-        <code>ChangeDetectionStrategy.OnPush</code> is used. Things like
-        <code>ChangeDetectionRef.markForCheck()</code> can enable it for the
-        next change detection cycle.
+        Each view has an internal state that decides if Angular will run change
+        detection. By default this is set to always check, unless
+        <code>ChangeDetectionStrategy.OnPush</code> is used. OnPush changes the
+        state to only check the first time - any further checks require an
+        explicit mark which will reset whenever the view is checked.
       </p>
     </div>
     <div class="card">
@@ -92,47 +92,104 @@
   <h2>Change Detection</h2>
   <div class="cards">
     <div class="card">
-      <h3>Change Detection Strategy</h3>
-      <p>Default vs OnPush</p>
-      <br />
+      <h3>Change Detection</h3>
       <p>
-        By the default angular always run change detection from the root
-        component. It compares (dirty checking) properties used in the template
-        (with shallow comparison) and continues to traverse the whole tree even
-        if it doesn'nt detect any changes.
+        Angular
+        <a href="https://angular.io/guide/glossary#change-detection"
+          >Change Detection</a
+        >
+        is a built-in framework feature that ensures the automatic
+        synchronization between the data of a component and its HTML template
+        view.
       </p>
       <br />
       <p>
-        <code>ChangeDetectionStrategy.OnPush</code> changes this behavior to
-        only check a view if an input has changed (compared by reference), an
-        event has been emitted from itself or a child or an Observable
-        subscribed with | async receives a new value.
+        Using the default change detection strategy Angular always traverses
+        through the whole view hierarchy when triggered - even if it does'nt
+        detect any changes.
       </p>
     </div>
 
     <div class="card">
-      <h3>Change Detection Ref</h3>
-      <p>MarkForCheck vs DetectChanges</p>
-      <br />
+      <h3>View</h3>
       <p>
-        MarkForCheck explicitly marks the view as changed (full path from root)
-        so that it can be checked again. Does not trigger the actual change
-        detection. This is only neccesary for OnPush components.
+        A class with the
+        <a href="https://angular.io/guide/glossary#component">@Component()</a>
+        decorator and its associated
+        <a href="https://angular.io/guide/glossary#component">template</a>
+        define a <a href="https://angular.io/guide/glossary#view">View</a>.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Change Detection Strategy</h3>
+      <p>
+        <a href="https://angular.io/api/core/ChangeDetectionStrategy"
+          >ChangeDetectionStrategy.Default</a
+        >
+        is the default behavior and checks the view on every change detection
+        run. Data-bound properties in the template is compared (shallow
+        comparison) with previous values, so called dirty checking. Any changes
+        will be updated in the DOM to reflect new values.
       </p>
       <br />
       <p>
-        DetectChanges triggers a local render (from the view that called it) and
-        its children.
+        <a href="https://angular.io/api/core/ChangeDetectionStrategy"
+          >ChangeDetectionStrategy.OnPush</a
+        >
+        disables automatic change detection. It can still be explicitly invoked
+        and the view will be marked as dirty when any of these events occur in
+        the view itself:
+      </p>
+      <ul>
+        <li>An input has changed (reference comparison)</li>
+        <li>An event has fired</li>
+        <li>An (Observable | async) has received a new value</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>ChangeDetectorRef</h3>
+      <p>
+        In reality there is no separate enity for the ChangeDetectionRef. Its
+        simply an interface to extend the View with some public high-level
+        methods so dont have to deal with complex low-level operations managing
+        the actual state.
+      </p>
+      <br />
+      <p>
+        <a href="https://angular.io/api/core/ChangeDetectorRef#markforcheck"
+          >markForCheck</a
+        >
+        is only neccesary to explicitly mark a view that uses OnPush as changed
+        (and the full path to the root) so that it can be checked again. This
+        does not trigger the actual change detection.
+      </p>
+      <br />
+      <p>
+        <a href="https://angular.io/api/core/ChangeDetectorRef#detectchanges"
+          >detectChanges</a
+        >
+        triggers a check of the attached view and its children. This should not
+        be neccesary in a normal app but can be useful to implement performant
+        local change detection or running apps without automatic change
+        detection (zone-less).
       </p>
     </div>
 
     <div class="card">
       <h3>Zone</h3>
       <p>
-        The following frequently used browser mechanisms are patched to support
-        and automatically trigger change detection
+        Angular takes care of running change detection on component
+        initialization by calling
+        <a href="https://angular.io/api/core/ChangeDetectorRef#detectchanges"
+          >ApplicationRef.tick()</a
+        >, but the DOM keeps recieving asyncrounos updates even after so when
+        the model data changes. Zone helps Angular to automatically trigger
+        change detection when data possibly have changed. How? The following
+        frequently used browser mechanisms are patched to support automatic
+        trigger of change detection:
       </p>
-      <br />
       <ul>
         <li>all browser events (click, mouseover, keyup, etc.)</li>
         <li><code>setTimeout()</code> and <code>setInterval()</code></li>
@@ -140,10 +197,18 @@
       </ul>
       <br />
       <p>
-        Zone.js is enabled in this demonstration to be able to display both
-        examples simultaneously, though the second tree is detached from the
-        root component to simulate the expected behavior. If in doubts,
-        enable/disable ngZone in main.ts.
+        Zone is not required to make Angular work. You can opt to but you will
+        need to trigger all change detection at the correct timing yourself,
+        which requires comprehensive knowledge of change detection.
+      </p>
+      <br />
+      <p>
+        To be able to display both examples simultaneously in this
+        demonstration, zone.js is actually enabled for both. Though the
+        zone-less tree is detached from the root view and certain code is runned
+        with <code>NgZone.runOutsideOfAngular()</code> to simulate a zone-less
+        environment. If in doubts, enable/disable ngZone in main.ts with
+        <code>ngZone: 'noop'</code>
       </p>
     </div>
 
@@ -157,7 +222,6 @@
         asyncrounos mechanism patched by zone.js and therefor change detection
         ran.
       </p>
-      <br />
       <p>
         This makes async pipes less useful in zone-less environments. Lets
         introduce the solution: push pipe. It replaces markForCheck with
@@ -168,3 +232,7 @@
     </div>
   </div>
 </section>
+
+<footer>
+  <p>Created by <a href="">Maximilian-R</a></p>
+</footer>

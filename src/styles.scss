@@ -46,29 +46,27 @@ button {
 }
 
 header {
-  padding: 0 1rem;
-  margin-bottom: 2rem;
+  margin: 1rem 1rem 2rem;
   text-align: center;
 
   h1 {
     margin-bottom: 1rem;
-    margin-top: 1rem;
   }
 
   .actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-  }
 
-  button {
-    white-space: nowrap;
-    background-color: var(--view-color-2);
-    color: var(--view-color-text);
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    margin: 0.5rem;
+    button {
+      white-space: nowrap;
+      background-color: var(--view-color-2);
+      color: var(--view-color-text);
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+    }
   }
 }
 
@@ -88,10 +86,10 @@ main {
   h2 {
     margin-bottom: 1rem;
   }
-}
 
-.tree {
-  font-size: 1rem;
+  .tree {
+    font-size: 1rem;
+  }
 }
 
 .node {
@@ -334,10 +332,14 @@ main + section {
     }
 
     ul {
-      padding-left: 0.5em;
+      padding-left: 1em;
 
       li {
         font-size: 0.8em;
+
+        &::marker {
+          color: var(--view-color-3);
+        }
       }
     }
 
@@ -347,5 +349,29 @@ main + section {
       border-radius: 0.25rem;
       font-size: 0.8rem;
     }
+
+    a {
+      background-color: var(--view-color-2);
+      padding: 0.25rem;
+      border-radius: 0.25rem;
+      font-size: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+
+      &:visited {
+        color: inherit;
+      }
+    }
   }
+}
+
+footer {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
 }

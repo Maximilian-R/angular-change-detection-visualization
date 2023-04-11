@@ -1,0 +1,8 @@
+<ul>
+  <li
+    *ngFor="let value of [1, 2, 3, 4, 5]"
+    [class.filled]="rating >= value"
+    [attr.data-value]="value"
+    (click)="rating = value"
+  ></li>
+</ul>

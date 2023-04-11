@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="./Rating.js"></script>
+    <style>
+      ul.rating {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .star {
+        border-radius: 50%;
+        border: 1px solid #303030;
+        cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+      }
+
+      .star.filled {
+        background: #a3d7ec;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const container = document.querySelector("body");
+      const instance = new RatingsComponent();
+      instance.init(container);
+    </script>
+  </body>
+</html>

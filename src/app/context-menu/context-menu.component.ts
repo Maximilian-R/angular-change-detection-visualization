@@ -41,7 +41,7 @@ export class ContextMenuComponent implements AfterViewInit, OnDestroy {
           takeUntil(this.onDestroy$),
           filter((event) => event.target === targetElement),
           tap((event) => {
-            console.log(event);
+            // console.log(event);
             menuElement.classList.add("display");
             menuElement.style.transform = `translate(${event.offsetX}px,${event.offsetY}px)`;
           }),

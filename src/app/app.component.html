@@ -9,12 +9,12 @@
 </header>
 
 <main>
-  <div class="tree-container">
-    <div class="tree">
+  <div class="tree-container" *ngIf="true">
+    <div class="tree" id="tree-zone-enabled">
       <h2>NgZone: Active</h2>
       <cdv-root [node]="selectedTree"></cdv-root>
     </div>
-    <div class="tree">
+    <div class="tree" id="tree-zone-disabled">
       <h2>NgZone: Inactive</h2>
       <cdv-root #rootZoneLess [node]="selectedTree" [detach]="true"></cdv-root>
     </div>
@@ -27,6 +27,7 @@
         <option value="0">Mix</option>
         <option value="1">Only Default</option>
         <option value="2">Only OnPush</option>
+        <option value="3">Large</option>
       </select>
     </div>
     <div class="setting">
@@ -36,6 +37,10 @@
     <div class="setting">
       <label for="dirty-status">Display Dirty Status</label>
       <input type="checkbox" id="dirty-status" #checkboxDirtyStatus />
+    </div>
+    <div class="setting">
+      <label for="dirty-status">Disable NgZone</label>
+      <input type="checkbox" id="zone-disabled" #checkboxZoneDisabled />
     </div>
   </section>
 </main>

@@ -27,6 +27,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   @ViewChild("requestButton") requestButton?: ElementRef;
   @ViewChild("checkboxCheckStatus") checkboxCheckStatus?: ElementRef;
   @ViewChild("checkboxDirtyStatus") checkboxDirtyStatus?: ElementRef;
+  @ViewChild("checkboxZoneDisabled") checkboxZoneDisabled?: ElementRef;
 
   public selectedTree: INode = this.treeSelection[0];
 
@@ -98,6 +99,14 @@ export class AppComponent implements AfterViewInit, OnDestroy {
           document
             .querySelector(".tree-container")
             ?.classList.toggle("display-dirty-status");
+        });
+
+      fromEvent(this.checkboxZoneDisabled?.nativeElement, "change")
+        .pipe(takeUntil(this.onDestroy$))
+        .subscribe(() => {
+          document
+            .querySelector(".tree-container")
+            ?.classList.toggle("zone-disabled");
         });
     });
   }

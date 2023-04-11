@@ -81,7 +81,7 @@ main {
   width: 100%;
   display: grid;
   text-align: center;
-  grid-template-columns: 1fr 1fr;
+  // grid-template-columns: 1fr 1fr;
 
   h2 {
     margin-bottom: 1rem;
@@ -374,4 +374,22 @@ footer {
   margin: 1rem 0;
   display: flex;
   justify-content: center;
+}
+
+#tree-zone-enabled {
+  display: block;
+}
+
+#tree-zone-disabled {
+  display: none;
+}
+
+.zone-disabled {
+  #tree-zone-enabled {
+    display: none;
+  }
+
+  #tree-zone-disabled {
+    display: block;
+  }
 }

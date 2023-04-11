@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy } from '@angular/core';
-import { INode } from '../node.interface';
+import { ChangeDetectionStrategy } from "@angular/core";
+import { INode } from "../node.interface";
 
 const tree: INode = {
   type: ChangeDetectionStrategy.Default,
